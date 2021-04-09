@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+
+.stage {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  background-image: url(imgs/grid.svg);
+  background-size: 200px;
+  background-position: left top;
+  border: 1px solid gray;;
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  left: calc(200px - 4px);
+  top: calc(200px - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 10px;
+  background-color: gray;
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  left: 200px;
+  top: 200px;
+  width: 100px;
+  height: 200px;
+  background-image: url(imgs/chara.svg);
+  opacity: 0.25;
+}
+
+.charactor {
+  position: absolute;
+  width: 100px;
+  height: 200px;
+  left: 200px;
+  top: 200px;
+  background-image: url(imgs/chara.svg);
+  background-size: 100px 200px;
+  background-position: left top;
+  background-repeat: no-repeat;
+  mix-blend-mode: multiply;
+  transition: transform 1s;
+}
+.origin {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: calc(200px - 5px);
+  top: calc(200px - 5px);
+  background-color: salmon;
+  border-radius: 10px;
+}
+
+.control {
+  width: 600px;
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+.control label, .control .label {
+  width: 30%;
+  padding: 4px;
+  min-height: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.control .input {
+  width: 70%;
+  font-size: 21px;
+}
+.control .view {
+  width: 70%;
+  padding: 4px;
+  font-size: 14px;
+}
+
+.control .shortcuts {
+  width: 100%;
+  padding: 4px;
+  text-align: right;
+}
+
