@@ -2,7 +2,6 @@
   <div class="CardStageComponent" :style="rootStyle">
     <div class="info">{{ selectedTransform }}</div>
     <div class="offsetMover" :class="{ offsetCenter }">
-      <div class="grid"></div>
       <div class="axis axisX"></div>
       <div class="axis axisY"></div>
       <div class="axis axisZ"></div>
@@ -92,7 +91,10 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   overflow: hidden;
-  .info {
+  background-image: url(../assets/grid.svg);
+  background-size: 200px;
+  background-position: center;
+.info {
     background-color: #ffffffcc;
     position: relative;
     z-index: 1;
@@ -109,18 +111,6 @@ export default defineComponent({
       left: 50%;
       top: 50%;
     }
-  }
-  .grid {
-    position: absolute;
-    width: 2000px;
-    height: 2000px;
-    left: -1000px;
-    top: -1000px;
-    background-image: url(../assets/grid.svg);
-    background-size: 200px;
-    transform: translateZ(-0.001px);
-    pointer-events: none;
-    opacity: 0.6;
   }
   .axis {
     &.axisX {
