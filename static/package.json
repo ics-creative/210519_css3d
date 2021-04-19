@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url ."
+    "build": "yarn build01; yarn build02; yarn build10",
+    "build01": "cd 01cardform; parcel build *.html --public-url . ",
+    "build02": "cd 02scroll; parcel build *.html --public-url . ",
+    "build10": "cd 10rotate3d; parcel build *.html --public-url . "
   },
   "dependencies": {
     "parcel": "^2.0.0-beta.2"
