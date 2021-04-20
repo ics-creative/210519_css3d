@@ -46,14 +46,14 @@
             v-model="stageProps.perspectiveOriginX"
             :min="-20"
             :max="120"
-            suffix="%"
+            :suffix="perspectiveOriginXSuffix"
           />
           <Slider
             label="Y"
             v-model="stageProps.perspectiveOriginY"
             :min="-20"
             :max="120"
-            suffix="%"
+            :suffix="perspectiveOriginYSuffix"
           />
         </div>
       </li>
@@ -104,6 +104,7 @@
               v-model="element.value"
               :min="ranges[element.key][0]"
               :max="ranges[element.key][1]"
+              :suffix="units[element.key]"
             />
           </div>
         </li>
@@ -118,6 +119,7 @@ import { computed, defineComponent, PropType, reactive, ref } from "vue";
 import draggable from "vuedraggable";
 import Slider from "./Slider.vue";
 import { transformPropName } from "@/logics/transformPropName";
+import { transformPropUnit } from "@/logics/transformPropUnit";
 
 type State = {
   drag: boolean;
@@ -239,18 +241,26 @@ export default defineComponent({
 
     const ranges = ref(PROPRANGES);
     const names = ref(transformPropName);
+    const units = ref(transformPropUnit);
 
     const originToSuffixStr = (o: number | undefined, isX: boolean) => {
       if (o == undefined) return "";
       if (o === 0) return "% = " + (isX ? "left" : "top");
       if (o === 50) return "% = center";
       if (o === 100) return "% = " + (isX ? "right" : "bottom");
+      return "%";
     };
     const transformOriginXSuffix = computed(() =>
       originToSuffixStr(props.transformOriginX, true)
     );
     const transformOriginYSuffix = computed(() =>
       originToSuffixStr(props.transformOriginY, false)
+    );
+    const perspectiveOriginXSuffix = computed(() =>
+      originToSuffixStr(props.perspectiveOriginX, true)
+    );
+    const perspectiveOriginYSuffix = computed(() =>
+      originToSuffixStr(props.perspectiveOriginY, false)
     );
 
     return {
@@ -260,8 +270,11 @@ export default defineComponent({
       stageProps,
       cardProps,
       names,
+      units,
       transformOriginXSuffix,
-      transformOriginYSuffix
+      transformOriginYSuffix,
+      perspectiveOriginXSuffix,
+      perspectiveOriginYSuffix
     };
   }
 });

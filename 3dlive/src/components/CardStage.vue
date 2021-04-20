@@ -1,6 +1,6 @@
 <template>
   <div class="CardStageComponent" :style="rootStyle">
-    <div class="info">{{ selectedTransform }}</div>
+    <div class="info">transform: {{ selectedTransform }}</div>
     <div class="offsetMover" :class="{ offsetCenter }">
       <div class="axis axisX"></div>
       <div class="axis axisY"></div>
@@ -94,7 +94,7 @@ export default defineComponent({
   background-image: url(../assets/grid.svg);
   background-size: 200px;
   background-position: center;
-.info {
+  .info {
     background-color: #ffffffcc;
     position: relative;
     z-index: 1;
