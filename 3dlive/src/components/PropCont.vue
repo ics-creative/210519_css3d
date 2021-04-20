@@ -34,7 +34,7 @@
             <input
               type="checkbox"
               v-model="stageProps.preserve"
-            />preserve3d</label
+            />tansform-style: preserve-3d</label
           >
         </div>
       </li>
