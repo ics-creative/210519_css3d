@@ -34,6 +34,7 @@ import { defineComponent, reactive, computed, watch } from "vue";
 import CardStage from "./components/CardStage.vue";
 import PropCont from "./components/PropCont.vue";
 import { CardProps } from "./types/CardProps";
+import { DelayExec } from "./logics/DelayExec";
 
 type StageStatus = {
   cards: CardProps[];
@@ -78,6 +79,11 @@ const getDefaultStatus = (): StageStatus => {
   return status as StageStatus;
 };
 
+const setStatus = (stageStatus: StageStatus) => {
+  const str = JSON.stringify(stageStatus);
+  history.replaceState(undefined, "", `#${encodeURIComponent(str)}`);
+};
+
 const loadStatus = (): StageStatus | undefined => {
   const hash = window.location.hash.substring(1);
   try {
@@ -115,16 +121,22 @@ export default defineComponent({
     );
 
     // ステート変更時にアドレスバーを更新
+    const saveThrottle = new DelayExec(350); // 実行頻度を回/350ms以下に制限
     watch(
       () => stageStatus,
       () => {
-        const str = JSON.stringify(stageStatus);
-        window.location.hash = encodeURIComponent(str);
+        saveThrottle.exec(() => setStatus(stageStatus));
       },
       {
         deep: true
       }
     );
+
+    window.addEventListener("hashchange", () => {
+      console.log("hash changed: load state");
+      const st = loadStatus();
+      Object.assign(stageStatus, st);
+    });
 
     // 起動時にカード0舞なら最初のカードを追加
     if (!stageStatus.cards.length) addCard();
