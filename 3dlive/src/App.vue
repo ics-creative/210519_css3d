@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="AppComponent">
-    <div class="stage">
+    <div class="stageWrapper">
       <CardStage
         :cards="stageStatus.cards"
         v-model:selected="stageStatus.selected"
@@ -168,7 +168,7 @@ body,
   display: grid;
   grid-template-columns: 1fr min(33vw, 250px);
   grid-template-areas: "stage cont";
-  .stage {
+  .stageWrapper {
     grid-area: stage;
   }
   .control {
